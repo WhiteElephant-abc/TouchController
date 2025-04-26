@@ -51,7 +51,13 @@ data class ItemConfig(
 }
 
 @Serializable
+enum class OperationMode {
+    TOUCH, MOUSE, AUTO
+}
+
+@Serializable
 data class GlobalConfig(
+    val mode: OperationMode = OperationMode.AUTO,
     val regular: RegularConfig = RegularConfig(),
     val control: ControlConfig = ControlConfig(),
     val touchRing: TouchRingConfig = TouchRingConfig(),

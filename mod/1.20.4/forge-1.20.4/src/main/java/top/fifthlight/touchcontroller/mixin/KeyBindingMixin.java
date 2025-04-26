@@ -15,6 +15,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import top.fifthlight.touchcontroller.common.config.GlobalConfigHolder;
+import top.fifthlight.touchcontroller.common.config.OperationMode;
+import android.view.InputDevice;
+import android.view.MotionEvent;
 import top.fifthlight.touchcontroller.gal.KeyBindingHandlerImpl;
 import top.fifthlight.touchcontroller.helper.ClickableKeyBinding;
 
@@ -44,7 +47,21 @@ public abstract class KeyBindingMixin implements ClickableKeyBinding {
         List<KeyMapping> keyBindings = MAP.getAll(key);
 
         if (keyBindings.contains(client.options.keyAttack) || keyBindings.contains(client.options.keyUse)) {
-            return config.getRegular().getDisableMouseClick() || config.getDebug().getEnableTouchEmulation();
+            boolean result;
+            switch (config.mode) {
+                case AUTO:
+                    result = MotionEvent.getSource() == InputDevice.SOURCE_TOUCHSCREEN;
+                    break;
+                case TOUCH:
+                    result = true;
+                    break;
+                case MOUSE:
+                    result = false;
+                    break;
+                default:
+                    result = false;
+            }
+            return result || config.getRegular().getDisableMouseClick() || config.getDebug().getEnableTouchEmulation();
         }
 
         for (int i = 0; i < 9; i++) {
