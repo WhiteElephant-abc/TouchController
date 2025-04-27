@@ -22,8 +22,6 @@ private fun point(angle: Float, radius: Float) = Offset(
 
 object CrosshairRendererImpl : CrosshairRenderer {
     override fun renderOuter(canvas: Canvas, config: TouchRingConfig) {
-        GlStateManager.disableTexture2D()
-        GlStateManager.color(1f, 1f, 1f, 1f)
         val tessellator = Tessellator.getInstance()
         val bufferBuilder = tessellator.buffer
         bufferBuilder.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION)
@@ -43,13 +41,27 @@ object CrosshairRendererImpl : CrosshairRenderer {
             bufferBuilder.pos(point3.x.toDouble(), point3.y.toDouble(), 0.0).endVertex()
             bufferBuilder.pos(point1.x.toDouble(), point1.y.toDouble(), 0.0).endVertex()
         }
+
+        GlStateManager.disableTexture2D()
+        GlStateManager.color(1f, 1f, 1f, 1f)
+        GlStateManager.enableBlend()
+        GlStateManager.tryBlendFuncSeparate(
+            GlStateManager.SourceFactor.ONE_MINUS_DST_COLOR,
+            GlStateManager.DestFactor.ONE_MINUS_SRC_COLOR,
+            GlStateManager.SourceFactor.ONE,
+            GlStateManager.DestFactor.ZERO,
+        )
         tessellator.draw()
+        GlStateManager.tryBlendFuncSeparate(
+            GlStateManager.SourceFactor.SRC_ALPHA,
+            GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
+            GlStateManager.SourceFactor.ONE,
+            GlStateManager.DestFactor.ZERO,
+        )
         GlStateManager.enableTexture2D()
     }
 
     override fun renderInner(canvas: Canvas, config: TouchRingConfig, progress: Float) {
-        GlStateManager.disableTexture2D()
-        GlStateManager.color(1f, 1f, 1f, 1f)
         val tessellator = Tessellator.getInstance()
         val bufferBuilder = tessellator.buffer
         bufferBuilder.begin(GL11.GL_TRIANGLE_FAN, DefaultVertexFormats.POSITION)
@@ -62,7 +74,23 @@ object CrosshairRendererImpl : CrosshairRenderer {
 
             bufferBuilder.pos(point.x.toDouble(), point.y.toDouble(), 0.0).endVertex()
         }
+
+        GlStateManager.disableTexture2D()
+        GlStateManager.color(1f, 1f, 1f, 1f)
+        GlStateManager.enableBlend()
+        GlStateManager.tryBlendFuncSeparate(
+            GlStateManager.SourceFactor.ONE_MINUS_DST_COLOR,
+            GlStateManager.DestFactor.ONE_MINUS_SRC_COLOR,
+            GlStateManager.SourceFactor.ONE,
+            GlStateManager.DestFactor.ZERO,
+        )
         tessellator.draw()
+        GlStateManager.tryBlendFuncSeparate(
+            GlStateManager.SourceFactor.SRC_ALPHA,
+            GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
+            GlStateManager.SourceFactor.ONE,
+            GlStateManager.DestFactor.ZERO,
+        )
         GlStateManager.enableTexture2D()
     }
 }

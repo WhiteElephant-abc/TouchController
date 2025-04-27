@@ -1,5 +1,6 @@
 package top.fifthlight.touchcontroller.gal
 
+import com.mojang.blaze3d.platform.GlStateManager
 import com.mojang.blaze3d.systems.RenderSystem
 import net.minecraft.client.render.BufferRenderer
 import net.minecraft.client.render.Tessellator
@@ -48,7 +49,15 @@ object CrosshairRendererImpl : CrosshairRenderer {
         }
         bufferBuilder.end()
         RenderSystem.disableTexture()
+        RenderSystem.enableBlend()
+        RenderSystem.blendFuncSeparate(
+            GlStateManager.SrcFactor.ONE_MINUS_DST_COLOR,
+            GlStateManager.DstFactor.ONE_MINUS_SRC_COLOR,
+            GlStateManager.SrcFactor.ONE,
+            GlStateManager.DstFactor.ZERO,
+        )
         BufferRenderer.draw(bufferBuilder)
+        RenderSystem.defaultBlendFunc()
         RenderSystem.enableTexture()
     }
 
@@ -68,7 +77,15 @@ object CrosshairRendererImpl : CrosshairRenderer {
         }
         bufferBuilder.end()
         RenderSystem.disableTexture()
+        RenderSystem.enableBlend()
+        RenderSystem.blendFuncSeparate(
+            GlStateManager.SrcFactor.ONE_MINUS_DST_COLOR,
+            GlStateManager.DstFactor.ONE_MINUS_SRC_COLOR,
+            GlStateManager.SrcFactor.ONE,
+            GlStateManager.DstFactor.ZERO,
+        )
         BufferRenderer.draw(bufferBuilder)
+        RenderSystem.defaultBlendFunc()
         RenderSystem.enableTexture()
     }
 }

@@ -1,5 +1,7 @@
 package top.fifthlight.touchcontroller.common_1_20_x.gal
 
+import com.mojang.blaze3d.platform.GlStateManager
+import com.mojang.blaze3d.systems.RenderSystem
 import com.mojang.blaze3d.vertex.BufferUploader
 import com.mojang.blaze3d.vertex.DefaultVertexFormat
 import com.mojang.blaze3d.vertex.Tesselator
@@ -48,7 +50,15 @@ object CrosshairRendererImpl : CrosshairRenderer {
                 bufferBuilder.vertex(matrix, point1.x, point1.y, 0f).color(Colors.WHITE.value).endVertex()
             }
 
+            RenderSystem.enableBlend()
+            RenderSystem.blendFuncSeparate(
+                GlStateManager.SourceFactor.ONE_MINUS_DST_COLOR,
+                GlStateManager.DestFactor.ONE_MINUS_SRC_COLOR,
+                GlStateManager.SourceFactor.ONE,
+                GlStateManager.DestFactor.ZERO,
+            )
             BufferUploader.drawWithShader(bufferBuilder.end())
+            RenderSystem.defaultBlendFunc()
         }
     }
 
@@ -68,7 +78,15 @@ object CrosshairRendererImpl : CrosshairRenderer {
                 bufferBuilder.vertex(matrix, point.x, point.y, 0f).color(Colors.WHITE.value).endVertex()
             }
 
+            RenderSystem.enableBlend()
+            RenderSystem.blendFuncSeparate(
+                GlStateManager.SourceFactor.ONE_MINUS_DST_COLOR,
+                GlStateManager.DestFactor.ONE_MINUS_SRC_COLOR,
+                GlStateManager.SourceFactor.ONE,
+                GlStateManager.DestFactor.ZERO,
+            )
             BufferUploader.drawWithShader(bufferBuilder.end())
+            RenderSystem.defaultBlendFunc()
         }
     }
 }

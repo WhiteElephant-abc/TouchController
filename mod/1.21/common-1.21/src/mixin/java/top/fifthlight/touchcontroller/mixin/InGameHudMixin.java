@@ -61,11 +61,10 @@ public abstract class InGameHudMixin {
                     context.blitSprite(CROSSHAIR_ATTACK_INDICATOR_PROGRESS_SPRITE, 16, 4, 0, 0, x - 8, y - 2, progress, 4);
                 }
             }
+            RenderSystem.defaultBlendFunc();
+            RenderSystem.disableBlend();
             callbackInfo.cancel();
         }
-
-        RenderSystem.defaultBlendFunc();
-        RenderSystem.disableBlend();
     }
 
     @Inject(

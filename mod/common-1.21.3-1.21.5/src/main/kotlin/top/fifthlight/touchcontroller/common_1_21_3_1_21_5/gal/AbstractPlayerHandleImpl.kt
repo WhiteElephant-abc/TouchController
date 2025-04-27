@@ -1,4 +1,4 @@
-package top.fifthlight.touchcontroller.common_1_21_3_1_21_5.event.gal
+package top.fifthlight.touchcontroller.common_1_21_3_1_21_5.gal
 
 import net.minecraft.client.Minecraft
 import net.minecraft.client.player.LocalPlayer

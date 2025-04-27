@@ -1,7 +1,6 @@
 package top.fifthlight.touchcontroller.common_1_21_5.event.gal
 
 import kotlinx.collections.immutable.toPersistentList
-import kotlinx.collections.immutable.toPersistentMap
 import net.minecraft.client.Minecraft
 import net.minecraft.client.player.LocalPlayer
 import net.minecraft.world.entity.EquipmentSlot
@@ -10,7 +9,7 @@ import top.fifthlight.combine.platform_1_21_3_1_21_5.toCombine
 import top.fifthlight.touchcontroller.common.gal.PlayerHandle
 import top.fifthlight.touchcontroller.common.gal.PlayerHandleFactory
 import top.fifthlight.touchcontroller.common.gal.PlayerInventory
-import top.fifthlight.touchcontroller.common_1_21_3_1_21_5.event.gal.AbstractPlayerHandleImpl
+import top.fifthlight.touchcontroller.common_1_21_3_1_21_5.gal.AbstractPlayerHandleImpl
 
 class PlayerHandleImpl(
     inner: LocalPlayer,

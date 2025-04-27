@@ -1,4 +1,5 @@
 import org.gradle.accessors.dm.LibrariesForLibs
+import org.spongepowered.asm.gradle.plugins.MixinExtension
 import org.spongepowered.asm.gradle.plugins.MixinExtension.AddMixinsToJarTask
 import top.fifthlight.touchcontoller.gradle.MinecraftVersion
 
@@ -94,6 +95,10 @@ mixin {
 }
 
 tasks.withType<AddMixinsToJarTask> {
+    enabled = false
+}
+
+tasks.withType<MixinExtension.ConfigureReobfTask> {
     enabled = false
 }
 
